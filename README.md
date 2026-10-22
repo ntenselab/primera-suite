@@ -1,3 +1,20 @@
+# Primera Suite: merged DWG/Intermediate edition
+
+This fork adds **PrimeraMergedDWG.dctl**, combining the original Primary, Hue, Split and Skin modules in one native DCTL. Original Primera Suite by [Geoff Smith](https://github.com/geoffsmithBK/primera-suite); MIT license and attribution are retained. This is an independent adaptation, not an official upstream release.
+
+- **[Download the complete package](MergedDWG/PrimeraMergedDWG_Pakiet.zip)** (open the file and select Download raw).
+- [Standalone DCTL](MergedDWG/PrimeraMergedDWG.dctl) · [Polish installation and SpektraFilm guide](MergedDWG/INSTRUKCJA_PL.md) · [Validation report](MergedDWG/TESTY_PL.md)
+- Input/output: **DaVinci Wide Gamut / Intermediate**. Processing order: **Primary → Hue → Split → Skin**.
+- Native DCTL does not expose true tabs or collapsible groups. Controls use section prefixes and independent enable switches; all controls remain visible.
+- Skin spatial sampling is preserved by re-evaluating the preceding stages for neighboring pixels. This can cost more GPU time than separate nodes.
+- **CPU validation passed: 2,417,910 channel comparisons with zero maximum difference from the original serial chain. Resolve/GPU compilation and rendering have not been tested.**
+
+![Processing order](MergedDWG/KOLEJNOSC.svg)
+
+The merged edition is self-contained in `MergedDWG/`. The original build and tools remain below. Upstream source used for this adaptation: `5b24e593390095968159e9ca55802feb0b35b64c`.
+
+---
+
 
 <p align="center">
   <img src="img/header_pie_ltype.png">

@@ -1,0 +1,14 @@
+{
+  "source_repository": "https://github.com/geoffsmithBK/primera-suite",
+  "source_commit": "5b24e593390095968159e9ca55802feb0b35b64c",
+  "date": "2026-10-22",
+  "resolve_gpu_tested": false,
+  "sha256": {
+    "INSTRUKCJA_PL.md": "b7e7a03d1ae0c34b8354aaf669986d06d8726f6b84250ad45831d7f067a3e4fa",
+    "KOLEJNOSC.svg": "06f43f528f6ff5a695acd3b450f6aa4a44120863fe13e8b9e8e6aef6b266737a",
+    "LICENSE.txt": "2226a8066c77e900987396f264dc61ba8ad88d6f7c495176118f378bce81fbaf",
+    "PrimeraMergedDWG.dctl": "134aee1280e1daf4bdfef944ec86f4d1c15cf00a1100664e04a84ea7fe98662b",
+    "TESTY_PL.md": "320cbfaab133aa33c74195794ea31b73e4cf22c115e9d41ae9b025b3c5639e8c",
+    "validation/validate.cpp": "df98b14b69577be042289632d2445969cb0fac2119cd7aa0a0b17804e9b45404"
+  }
+}
