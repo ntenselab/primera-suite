@@ -1,5 +1,9 @@
 # Raport weryfikacji, 22.10.2026
 
+## Błąd zgłoszony w Resolve i poprawka 1.0.1
+
+Użytkownik zgłosił rzeczywisty błąd kompilacji wersji 1.0: „wrong argument PrimeraParams u in Transform DCTL” oraz „Transform DCTL function has wrong arguments”. Testy CPU nie wykryły ograniczenia parsera Resolve. Zmieniono nazwy pomocnicze z P/H/S/K_transform na P/H/S/K_process. Statycznie potwierdzono tylko jedno wystąpienie `transform(` w dostarczonym DCTL. Powtórzono pełny test CPU z tym samym wynikiem. Kompilacja poprawki w Resolve nie została potwierdzona.
+
 ## Wynik
 
 **PASS w testach zastępczych CPU. Kompilacja GPU i render w DaVinci Resolve: NIE WYKONANO.** Nie deklaruję potwierdzonej zgodności z konkretnym GPU ani wersją Resolve.

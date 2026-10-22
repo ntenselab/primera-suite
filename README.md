@@ -5,11 +5,13 @@ This fork adds **PrimeraMergedDWG.dctl**, combining the original Primary, Hue, S
 - **[Download the complete package](MergedDWG/PrimeraMergedDWG_Pakiet.zip)** (open the file and select Download raw).
 - [Standalone DCTL](MergedDWG/PrimeraMergedDWG.dctl) · [Polish installation and SpektraFilm guide](MergedDWG/INSTRUKCJA_PL.md) · [Validation report](MergedDWG/TESTY_PL.md)
 - Input/output: **DaVinci Wide Gamut / Intermediate**. Processing order: **Primary → Hue → Split → Skin**.
-- Native DCTL does not expose true tabs or collapsible groups. Controls use section prefixes and independent enable switches; all controls remain visible.
+- Native DCTL does not expose true tabs or collapsible groups. Controls are a flat list with label prefixes and independent enable switches, not visual groups; all controls remain visible.
 - Skin spatial sampling is preserved by re-evaluating the preceding stages for neighboring pixels. This can cost more GPU time than separate nodes.
 - **CPU validation passed: 2,417,910 channel comparisons with zero maximum difference from the original serial chain. Resolve/GPU compilation and rendering have not been tested.**
 
 ![Processing order](MergedDWG/KOLEJNOSC.svg)
+
+**v1.0.1 parser compatibility fix:** v1.0 failed to compile in Resolve with `wrong argument PrimeraParams u in Transform DCTL`. Helper functions have been renamed from `*_transform` to `*_process` to avoid entry-point detection ambiguity. CPU tests pass again; compilation of this fix in Resolve is still unverified.
 
 The merged edition is self-contained in `MergedDWG/`. The original build and tools remain below. Upstream source used for this adaptation: `5b24e593390095968159e9ca55802feb0b35b64c`.
 

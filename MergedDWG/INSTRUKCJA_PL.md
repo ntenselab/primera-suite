@@ -1,8 +1,14 @@
-# Primera Merged DWG 1.0
+# Primera Merged DWG 1.0.1
 
 Jeden samodzielny DCTL z czterema modułami Primera Suite v0.6.0: Primary, Hue, Split i Skin. Wejście i wyjście: **DaVinci Wide Gamut / DaVinci Intermediate**. Plik nie wykonuje konwersji gamutu ani transformacji do monitora.
 
 Źródło zweryfikowane 22.10.2026: [Primera Suite](https://github.com/geoffsmithBK/primera-suite/tree/5b24e593390095968159e9ca55802feb0b35b64c), commit `5b24e593390095968159e9ca55802feb0b35b64c`. Cztery pliki w repozytorium są zgodne z połączeniem fragmentów wskazanych w jego Makefile. Pełna licencja MIT Geoffa Smitha jest w pliku DCTL oraz LICENSE.txt. To niezależne scalenie, nie oficjalne wydanie autora.
+
+## Poprawka 1.0.1
+
+Wersja 1.0 zgłosiła w Resolve błąd „wrong argument PrimeraParams u in Transform DCTL”. W 1.0.1 zmieniono nazwy pomocnicze P/H/S/K_transform na P/H/S/K_process, aby słowo `transform` występowało wyłącznie przy właściwej funkcji wejściowej. Prawdopodobną przyczyną jest rozpoznawanie nazw pomocniczych przez parser jako funkcji wejściowych. Poprawka nie zmienia matematyki. Jej kompilacja w Resolve pozostaje niepotwierdzona.
+
+Panel jest płaską listą, bez wizualnych grup. Prefiksy służą wyłącznie rozpoznaniu modułu.
 
 ## Instalacja
 
@@ -21,7 +27,7 @@ Dokumentacja `DCTLReadme.txt` dostarczona przez konektor Resolve Studio 21.1.1 o
 
 Ten plik używa **49 suwaków float i 17 checkboxów**. Razem 66, ale limit dotyczy każdego typu osobno, więc nie jest przekroczony.
 
-- `Primary - ...`, `Hue - ...`, `Split - ...`, `Skin - ...` są stałymi grupami nazw. Wszystkie kontrolki pozostają widoczne; Resolve może układać typy kontrolek osobno.
+- `Primary - ...`, `Hue - ...`, `Split - ...`, `Skin - ...` są wyłącznie prefiksami etykiet, nie wizualnymi grupami. Wszystkie kontrolki pozostają widoczne; Resolve może układać typy kontrolek osobno.
 - `Enable Primary/Hue/Split/Skin` przełączają przetwarzanie odpowiednich sekcji i zachowują ich ustawienia.
 - `Bypass All` zwraca dokładnie wejściowe RGB i wyłącza również podglądy diagnostyczne.
 - Wyłączenie sekcji nie chowa jej suwaków. Nie ma pozorowanej zakładki, która nadpisywałaby wspólne suwaki i gubiła stan innych modułów.

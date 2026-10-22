@@ -1,5 +1,5 @@
 /*
-Primera Merged DWG v1.0
+Primera Merged DWG v1.0.1
 Adapted 2026-10-22. Original algorithms by Geoff Smith.
 Source commit: 5b24e593390095968159e9ca55802feb0b35b64c
 Input/output: DaVinci Wide Gamut / Intermediate. Not an output transform.
@@ -663,7 +663,7 @@ __DEVICE__ float P_rolling_contrast(float x, float contrast, float pivot) {
 // Main Transform
 // ============================================================
 
-__DEVICE__ float3 P_transform(PrimeraParams u, int p_Width, int p_Height, int p_X, int p_Y, float p_R, float p_G, float p_B) {
+__DEVICE__ float3 P_process(PrimeraParams u, int p_Width, int p_Height, int p_X, int p_Y, float p_R, float p_G, float p_B) {
 
     if (u.P_p_show_chart == 1) {
         float3 chart = P_render_chart(p_Width, p_Height, p_X, p_Y, 5);
@@ -991,7 +991,7 @@ __DEVICE__ float3 H_soft_squeeze(float3 rgb) {
 // Main Transform
 // ============================================================
 
-__DEVICE__ float3 H_transform(PrimeraParams u, int p_Width, int p_Height, int p_X, int p_Y, float p_R, float p_G, float p_B) {
+__DEVICE__ float3 H_process(PrimeraParams u, int p_Width, int p_Height, int p_X, int p_Y, float p_R, float p_G, float p_B) {
 
     float r = p_R;
     float g = p_G;
@@ -1510,7 +1510,7 @@ __DEVICE__ float3 S_draw_curve_overlay(float3 rgb, int p_X, int p_Y, int p_Width
 // Main Transform
 // ============================================================
 
-__DEVICE__ float3 S_transform(PrimeraParams u, int p_Width, int p_Height, int p_X, int p_Y, float p_R, float p_G, float p_B) {
+__DEVICE__ float3 S_process(PrimeraParams u, int p_Width, int p_Height, int p_X, int p_Y, float p_R, float p_G, float p_B) {
 
     float effective_pivot = S_encode(0.18f, 5) + u.S_pivot;
 
@@ -1602,9 +1602,9 @@ __DEVICE__ float3 S_transform(PrimeraParams u, int p_Width, int p_Height, int p_
     return rgb;
 }
 __DEVICE__ float3 upstream(PrimeraParams u, int w, int h, int x, int y, float3 c) {
-    if (u.enable_P) c = P_transform(u, w, h, x, y, c.x, c.y, c.z);
-    if (u.enable_H) c = H_transform(u, w, h, x, y, c.x, c.y, c.z);
-    if (u.enable_S) c = S_transform(u, w, h, x, y, c.x, c.y, c.z);
+    if (u.enable_P) c = P_process(u, w, h, x, y, c.x, c.y, c.z);
+    if (u.enable_H) c = H_process(u, w, h, x, y, c.x, c.y, c.z);
+    if (u.enable_S) c = S_process(u, w, h, x, y, c.x, c.y, c.z);
     return c;
 }
 // PrimeraSkin v0.6.0
@@ -1851,7 +1851,7 @@ __DEVICE__ float3 K_zone_color(float zone, float3 base) {
 // only FILLS holes and never erodes confident edges.
 //
 // This helper lives here (not in skintone.dctlf) because that fragment is
-// shared with PrimeraHue, which keeps the scalar K_transform signature and must
+// shared with PrimeraHue, which keeps the scalar K_process signature and must
 // not gain texture dependencies.
 
 // Sparse tap pattern: centre + 3 concentric rings (8/12/16 taps) at r/3, 2r/3,
@@ -1945,8 +1945,8 @@ __DEVICE__ float K_pool_skin_mask(PrimeraParams u, __TEXTURE__ p_TexR, __TEXTURE
     return msum / wsum;
 }
 
-// Resolve's parser requires the K_transform() signature on a single line.
-__DEVICE__ float3 K_transform(PrimeraParams u, int p_Width, int p_Height, int p_X, int p_Y, __TEXTURE__ p_TexR, __TEXTURE__ p_TexG, __TEXTURE__ p_TexB) {
+// Resolve's parser requires the K_process() signature on a single line.
+__DEVICE__ float3 K_process(PrimeraParams u, int p_Width, int p_Height, int p_X, int p_Y, __TEXTURE__ p_TexR, __TEXTURE__ p_TexG, __TEXTURE__ p_TexB) {
 
     // Center pixel sampled once. These replace the old p_R/p_G/p_B working set.
     float3 center = upstream(u, p_Width, p_Height, p_X, p_Y, make_float3(_tex2D(p_TexR, p_X, p_Y), _tex2D(p_TexG, p_X, p_Y), _tex2D(p_TexB, p_X, p_Y)));
@@ -2344,6 +2344,6 @@ __DEVICE__ float3 transform(int p_Width, int p_Height, int p_X, int p_Y, __TEXTU
     u.enable_H = enable_H;
     u.enable_S = enable_S;
     u.enable_K = enable_K;
-    if (u.enable_K) return K_transform(u, p_Width, p_Height, p_X, p_Y, p_TexR, p_TexG, p_TexB);
+    if (u.enable_K) return K_process(u, p_Width, p_Height, p_X, p_Y, p_TexR, p_TexG, p_TexB);
     return upstream(u, p_Width, p_Height, p_X, p_Y, c);
 }
